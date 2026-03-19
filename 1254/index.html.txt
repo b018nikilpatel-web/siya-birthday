@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Siya ❤️</title>
+
+<style>
+body{margin:0;background:black;color:white;font-family:cursive;overflow:hidden;text-align:center}
+
+/* INTRO */
+#intro{
+position:fixed;width:100%;height:100%;
+display:flex;justify-content:center;align-items:center;
+background:black;font-size:2em;z-index:10;
+animation:fadeOut 5s forwards;
+}
+@keyframes fadeOut{80%{opacity:1}100%{opacity:0;visibility:hidden}}
+
+/* STARS */
+.star{position:absolute;width:2px;height:2px;background:white;animation:twinkle 2s infinite alternate}
+@keyframes twinkle{from{opacity:.2}to{opacity:1}}
+
+/* NAME FLOAT */
+.nameFloat{position:absolute;color:pink;animation:floatUp 6s linear infinite}
+@keyframes floatUp{to{transform:translateY(-800px);opacity:0}}
+
+/* SLIDESHOW */
+#slideshow img{
+width:200px;height:200px;border-radius:20px;
+position:absolute;left:50%;transform:translateX(-50%);
+opacity:0;transition:1s
+}
+.active{opacity:1}
+
+/* BUTTON */
+button{padding:12px 25px;border:none;border-radius:25px;background:pink;color:white;cursor:pointer}
+
+/* SECRET NOTE */
+#overlay{
+position:fixed;width:100%;height:100%;
+background:rgba(0,0,0,.7);backdrop-filter:blur(8px);
+display:none;justify-content:center;align-items:center;z-index:20
+}
+#noteBox{background:rgba(255,255,255,.1);padding:25px;border-radius:20px}
+
+/* FOREVER */
+#foreverScreen{
+position:fixed;width:100%;height:100%;background:black;
+display:none;justify-content:center;align-items:center;flex-direction:column;z-index:30
+}
+
+/* ENDING */
+#endingScene{
+position:fixed;width:100%;height:100%;background:black;
+display:none;justify-content:center;align-items:center;flex-direction:column;z-index:100
+}
+</style>
+</head>
+
+<body>
+
+<div id="intro">💖 Loading Love for Siya... 💖</div>
+
+<div id="overlay">
+<div id="noteBox">
+<div id="noteText"></div>
+<button onclick="closeNote()">Close ❤️</button>
+</div>
+</div>
+
+<div id="foreverScreen">
+<h1>Siya ❤️ Nikil</h1>
+<p>Forever & Always 💖</p>
+</div>
+
+<div id="endingScene">
+<h1>Siya ❤️ Nikil</h1>
+<p>This is just the beginning... 💖</p>
+</div>
+
+<div id="slideshow">
+<img src="siya1.jpg" class="active">
+<img src="siya2.jpg">
+<img src="us1.jpg">
+<img src="us2.jpg">
+<img src="us3.jpg">
+</div>
+
+<h1>🎉 Happy Birthday Siya 🎂</h1>
+<div id="countdown"></div>
+
+<button onclick="showMessage()">🎁 Surprise</button>
+<button onclick="secretNote()">💌 Secret</button>
+<button onclick="propose()">💍 Proposal</button>
+
+<p id="hiddenMessage"></p>
+
+<audio id="bgMusic" autoplay loop>
+<source src="https://pagalworld.com.se/files/download/id/6471">
+</audio>
+
+<audio id="heartbeat" src="https://www.fesliyanstudios.com/play-mp3/387"></audio>
+
+<script>
+
+// MUSIC CLICK FIX
+document.onclick=()=>bgMusic.play()
+
+// STARS
+for(let i=0;i<80;i++){
+let s=document.createElement("div");
+s.className="star";
+s.style.top=Math.random()*innerHeight+"px";
+s.style.left=Math.random()*innerWidth+"px";
+document.body.appendChild(s);
+}
+
+// FLOAT NAME
+setInterval(()=>{
+let n=document.createElement("div");
+n.className="nameFloat";
+n.innerHTML="Siya ❤️";
+n.style.left=Math.random()*innerWidth+"px";
+document.body.appendChild(n);
+setTimeout(()=>n.remove(),6000);
+},500);
+
+// SLIDESHOW
+let slides=document.querySelectorAll("#slideshow img");
+let i=0;
+setInterval(()=>{
+slides[i].classList.remove("active");
+i=(i+1)%slides.length;
+slides[i].classList.add("active");
+},3000);
+
+// COUNTDOWN
+const birthday=new Date("2026-07-18").getTime();
+setInterval(()=>{
+let now=Date.now();
+let d=birthday-now;
+let days=Math.floor(d/86400000);
+document.getElementById("countdown").innerHTML=days+" days left ❤️";
+if(d<0){
+document.getElementById("foreverScreen").style.display="flex";
+fireworks();
+}
+},1000);
+
+// MESSAGE
+function showMessage(){
+let msg="Happy Birthday Siya 💖\\nI love you forever ❤️\\n— Nikil";
+let el=document.getElementById("hiddenMessage");
+el.innerHTML="";
+let i=0;
+(function type(){
+if(i<msg.length){
+el.innerHTML+=msg[i]=="\\n"?"<br>":msg[i];
+i++;setTimeout(type,80);
+}})();
+}
+
+// SECRET NOTE
+function secretNote(){
+overlay.style.display="flex";
+noteText.innerHTML="Siya ❤️<br>I will always choose you 💖<br>— Nikil";
+}
+function closeNote(){overlay.style.display="none"}
+
+// PROPOSAL
+function propose(){
+let box=document.createElement("div");
+box.style.position="fixed";
+box.style.top="50%";
+box.style.left="50%";
+box.style.transform="translate(-50%,-50%)";
+box.style.background="black";
+box.style.padding="20px";
+box.innerHTML=`
+<h3>Will you stay forever? 💍</h3>
+<button id="yes">YES 💖</button>
+<button id="no">NO 😈</button>`;
+document.body.appendChild(box);
+
+yes.onclick=()=>{
+heartBlast();
+box.innerHTML="Forever begins now 💖";
+};
+
+no.onmouseover=()=>{
+no.style.position="absolute";
+no.style.left=Math.random()*200+"px";
+no.style.top=Math.random()*200+"px";
+};
+}
+
+// HEART BLAST
+function heartBlast(){
+for(let i=0;i<80;i++){
+let h=document.createElement("div");
+h.innerHTML="❤️";
+h.style.position="fixed";
+h.style.left=innerWidth/2+"px";
+h.style.top=innerHeight/2+"px";
+document.body.appendChild(h);
+
+let x=(Math.random()-0.5)*600;
+let y=(Math.random()-0.5)*600;
+
+h.animate([{transform:"translate(0,0)"},{transform:`translate(${x}px,${y}px)`}],{duration:1500});
+setTimeout(()=>h.remove(),1500);
+}
+}
+
+// FIREWORKS
+function fireworks(){
+setInterval(()=>{
+for(let i=0;i<20;i++){
+let f=document.createElement("div");
+f.style.position="absolute";
+f.style.left=innerWidth/2+"px";
+f.style.top=innerHeight/2+"px";
+f.innerHTML="✨";
+document.body.appendChild(f);
+let x=(Math.random()-0.5)*400;
+let y=(Math.random()-0.5)*400;
+f.animate([{transform:"translate(0,0)"},{transform:`translate(${x}px,${y}px)`}],{duration:1000});
+setTimeout(()=>f.remove(),1000);
+}
+},800);
+}
+
+</script>
+
+</body>
+</html>
